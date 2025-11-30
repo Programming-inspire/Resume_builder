@@ -2,46 +2,19 @@ import { CheckCircle2, Check } from 'lucide-react';
 
 interface UpdatedResumeScreenProps {
   score: number;
+  originalResume: string;  // ✅ Original resume from API
+  updatedResume: string;   // ✅ Updated resume from API
+  updatedPoints: string[]; // ✅ List of improvements from API
   onDone: () => void;
 }
 
-export default function UpdatedResumeScreen({ score, onDone }: UpdatedResumeScreenProps) {
-  const updatedPoints = [
-    'Added missing keywords',
-    'Strengthened role responsibilities',
-    'Added relevant project highlights',
-    'Improved skill alignment'
-  ];
-
-  const originalResume = `John Doe
-Senior Software Developer
-
-Experience:
-• Worked on web applications
-• Built features using JavaScript
-• Collaborated with team members
-
-Skills:
-JavaScript, HTML, CSS, React
-
-Education:
-Bachelor's in Computer Science`;
-
-  const updatedResume = `John Doe
-Senior Software Developer
-
-Experience:
-• Developed scalable web applications using modern frameworks
-• Built responsive features using JavaScript, React, and TypeScript
-• Collaborated with cross-functional teams in Agile environment
-• Led code reviews and mentored junior developers
-
-Skills:
-JavaScript, TypeScript, HTML, CSS, React, Node.js, REST APIs, Git, Agile
-
-Education:
-Bachelor's in Computer Science`;
-
+export default function UpdatedResumeScreen({
+  score,
+  originalResume,
+  updatedResume,
+  updatedPoints,
+  onDone,
+}: UpdatedResumeScreenProps) {
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col">
       {/* Navbar */}
@@ -83,17 +56,9 @@ Bachelor's in Computer Science`;
                 <h3 className="text-gray-800 mb-4">Original Resume</h3>
                 <div className="bg-white rounded-lg p-3 md:p-4 h-64 md:h-80 overflow-y-auto">
                   <pre className="whitespace-pre-wrap text-gray-700 text-xs md:text-sm leading-relaxed">
-                    {originalResume.split('\n').map((line, index) => {
-                      // Highlight removed or changed content in red
-                      const isChanged = line.includes('Worked on web') || 
-                                       line.includes('Built features using JavaScript') ||
-                                       line.includes('JavaScript, HTML, CSS, React');
-                      return (
-                        <div key={index} className={isChanged ? 'bg-red-50 border-l-2 border-red-400 pl-2 -ml-2' : ''}>
-                          {line}
-                        </div>
-                      );
-                    })}
+                    {originalResume.split('\n').map((line, index) => (
+                      <div key={index}>{line}</div>
+                    ))}
                   </pre>
                 </div>
               </div>
@@ -103,21 +68,9 @@ Bachelor's in Computer Science`;
                 <h3 className="text-gray-800 mb-4">Updated Resume</h3>
                 <div className="bg-white rounded-lg p-3 md:p-4 h-64 md:h-80 overflow-y-auto">
                   <pre className="whitespace-pre-wrap text-gray-700 text-xs md:text-sm leading-relaxed">
-                    {updatedResume.split('\n').map((line, index) => {
-                      // Highlight new or improved content in green
-                      const isNew = line.includes('scalable web applications') || 
-                                   line.includes('TypeScript') ||
-                                   line.includes('cross-functional') ||
-                                   line.includes('Led code reviews') ||
-                                   line.includes('Node.js') ||
-                                   line.includes('REST APIs') ||
-                                   line.includes('Agile');
-                      return (
-                        <div key={index} className={isNew ? 'bg-green-50 border-l-2 border-green-400 pl-2 -ml-2' : ''}>
-                          {line}
-                        </div>
-                      );
-                    })}
+                    {updatedResume.split('\n').map((line, index) => (
+                      <div key={index}>{line}</div>
+                    ))}
                   </pre>
                 </div>
               </div>
